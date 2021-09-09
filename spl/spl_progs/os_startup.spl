@@ -61,13 +61,17 @@ PTLR = 10;
 [81 * 512] = [69*512 + 1];
 
 [PROCESS_TABLE + 1] = 0; //PID
+[PROCESS_TABLE + 4] = "CREATED"; //State of the process
 [PROCESS_TABLE + 11] = 82; //user area page number
-[PROCESS_TABLE + 4] = CREATED; //State of the process
-[PROCESS_TABLE + 13] = 8*512; //UPTR value
 [PROCESS_TABLE + 12] = 0; //KPTR value
+[PROCESS_TABLE + 13] = 8*512; //UPTR value
+[PROCESS_TABLE + 14] = PAGE_TABLE_BASE;
+[PROCESS_TABLE + 15] = 10;
+
+
 
 //setting page table entries for init process
-PTBR = PAGE_TABLE_BASE + 16; //as PID of idle process is 1
+PTBR = PAGE_TABLE_BASE + 20; //as PID of idle process is 1
 PTLR = 10;
 
 //Library
@@ -98,16 +102,19 @@ PTLR = 10;
 [PTBR+18] = 77;
 [PTBR+19] = "0110";
 
-SP = 8*512;
 [76*512] = [65 * 512 + 1];
 
-//process table # s9
-[PROCESS_TABLE + 11] = 80; //user area page number
-[PROCESS_TABLE + 1] = 1; //PID
+SP = 8*512;
 [SYSTEM_STATUS_TABLE + 1] = 1; //current PID
-[PROCESS_TABLE + 4] = RUNNING; //State of the process
-[PROCESS_TABLE + 13] = 8*512; //UPTR value
-[PROCESS_TABLE + 12] = 0; //KPTR value
+
+//process table # s9
+[PROCESS_TABLE + 16 + 1] = 1; //PID
+[PROCESS_TABLE + 16 + 4] = RUNNING; //State of the process
+[PROCESS_TABLE + 16 + 11] = 80; //user area page number
+[PROCESS_TABLE + 16 + 12] = 0; //KPTR value
+[PROCESS_TABLE + 16 + 13] = 8*512; //UPTR value
+[PROCESS_TABLE + 16 + 14] = PAGE_TABLE_BASE + 20;
+[PROCESS_TABLE + 16 + 15] = 10;
 
 
 
