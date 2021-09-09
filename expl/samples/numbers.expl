@@ -5,12 +5,14 @@ decl
 enddecl
 begin
 	num = 1;
-	while ( num <= 50 ) do
-		if ( (num % 2) == 1 ) then
+	while ( num <= 100 )do
+	        if ((num%2) == 1) then
 			temp = exposcall ( "Write", -2, num );
 		endif;
 	num = num + 1;
+	breakpoint;
 	endwhile;
+	breakpoint;
 	return 0;
 end
 }

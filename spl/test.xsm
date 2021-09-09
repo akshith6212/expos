@@ -1,0 +1,5 @@
+IN
+MOV R16, "read successfully"
+PORT P1, R16
+OUT
+HALT
