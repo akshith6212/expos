@@ -1,28 +1,16 @@
-loadi(65,7);
-loadi(66,8);
-
-loadi(4, 17);
-loadi(5, 18);
-
-loadi(22,35);
-loadi(23,36);
-
-loadi(2, 15);
-loadi(3, 16);
-
-loadi(63,13);
-loadi(64,14);
-
-loadi(4, 17);
-loadi(5, 18);
-
 //loading the idle process code
 loadi(69,11);
 loadi(70,12);
 
-//load write systemcall 
-loadi(16,29);
-loadi(17,30);
+//loading boot module (module 7)
+loadi(54,67);
+loadi(55,68);
+
+//setting the SP to userarepagenumber*512-1
+SP = 82*512-1;
+
+//calling the boot module
+call BOOT_MODULE;
 
 
 //setting pagetable entries for idle process
@@ -58,10 +46,8 @@ PTLR = 10;
 [PTBR+19] = "0000";
 
 
-[81 * 512] = [69*512 + 1];
-
 [PROCESS_TABLE + 1] = 0; //PID
-[PROCESS_TABLE + 4] = "CREATED"; //State of the process
+[PROCESS_TABLE + 4] = RUNNING; //State of the process
 [PROCESS_TABLE + 11] = 82; //user area page number
 [PROCESS_TABLE + 12] = 0; //KPTR value
 [PROCESS_TABLE + 13] = 8*512; //UPTR value
@@ -69,53 +55,9 @@ PTLR = 10;
 [PROCESS_TABLE + 15] = 10;
 
 
-
-//setting page table entries for init process
-PTBR = PAGE_TABLE_BASE + 20; //as PID of idle process is 1
-PTLR = 10;
-
-//Library
-[PTBR+0] = 63;
-[PTBR+1] = "0100";
-[PTBR+2] = 64;
-[PTBR+3] = "0100";
-
-//Heap
-[PTBR+4] = 78;
-[PTBR+5] = "0110";
-[PTBR+6] = 79;
-[PTBR+7] = "0110";
-
-//Code
-[PTBR+8] = 65;
-[PTBR+9] = "0100";
-[PTBR+10] = 66;
-[PTBR+11] = "0100";
-[PTBR+12] = -1;
-[PTBR+13] = "0000";
-[PTBR+14] = -1;
-[PTBR+15] = "0000";
-
-//Stack
-[PTBR+16] = 76;
-[PTBR+17] = "0110";
-[PTBR+18] = 77;
-[PTBR+19] = "0110";
-
-[76*512] = [65 * 512 + 1];
+[81*512] = [69 * 512 + 1];
 
 SP = 8*512;
-[SYSTEM_STATUS_TABLE + 1] = 1; //current PID
-
-//process table # s9
-[PROCESS_TABLE + 16 + 1] = 1; //PID
-[PROCESS_TABLE + 16 + 4] = RUNNING; //State of the process
-[PROCESS_TABLE + 16 + 11] = 80; //user area page number
-[PROCESS_TABLE + 16 + 12] = 0; //KPTR value
-[PROCESS_TABLE + 16 + 13] = 8*512; //UPTR value
-[PROCESS_TABLE + 16 + 14] = PAGE_TABLE_BASE + 20;
-[PROCESS_TABLE + 16 + 15] = 10;
-
-
+[SYSTEM_STATUS_TABLE + 1] = 0; //current PID (initialised as idle process)
 
 ireturn;
