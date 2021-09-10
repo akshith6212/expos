@@ -1,3 +1,5 @@
+breakpoint;
+
 //saving the progress
 [PROCESS_TABLE + ( [SYSTEM_STATUS_TABLE + 1] * 16) + 13] = SP;
 
@@ -8,7 +10,7 @@ backup;
 
 alias currentPID R0;
 currentPID = [SYSTEM_STATUS_TABLE+1];
-print currentPID;
+//print currentPID;
 
 alias process_table_entry R1;
 process_table_entry = PROCESS_TABLE + currentPID * 16;
@@ -51,4 +53,5 @@ SP = [PROCESS_TABLE + ( [SYSTEM_STATUS_TABLE + 1] * 16) + 13];
 //print "pid is:";
 //print [SYSTEM_STATUS_TABLE + 1];
 
+breakpoint;
 ireturn;
