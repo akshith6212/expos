@@ -1,0 +1,19 @@
+// for assignment 1
+
+//prints odd numbers
+int main()
+{
+decl
+	int temp,num;
+enddecl
+begin
+	num = 1;
+	while ( num <= 100 )do
+		temp = exposcall ( "Write", -2, num );
+	num = num + 2;
+	breakpoint;
+	endwhile;
+	breakpoint;
+	return 0;
+end
+}

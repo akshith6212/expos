@@ -12,6 +12,7 @@ decl
 	Student s1;
 enddecl
 begin
+	breakpoint;
 	val = initialize();
 	s1 = alloc();
 	s1.name = "John";
