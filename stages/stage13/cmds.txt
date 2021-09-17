@@ -1,0 +1,9 @@
+load --library ../expl/library.lib
+load --exhandler ../stages/stage13/exhandler.xsm
+load --int=timer ../stages/stage13/timer.xsm
+load --int=7 ../expl/expl_progs/int7.xsm
+load --int=10 ../spl/spl_progs/haltprog.xsm
+load --idle ../expl/expl_progs/idle.xsm
+load --module 7 ../stages/stage13/bootmod.xsm
+load --init ../stages/stage13/init.xsm
+load --os ../stages/stage13/os_startup.xsm

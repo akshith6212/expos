@@ -1,5 +1,3 @@
-//prints even numbers
-
 int main()
 {
 decl
@@ -7,9 +5,9 @@ decl
 enddecl
 begin
 	num = 0;
-	while ( num <= 100 )do
+	while ( num <= 200 )do
 		temp = exposcall ( "Write", -2, num );
-	num = num + 2;
+	num = num + 1;
 	breakpoint;
 	endwhile;
 	breakpoint;
