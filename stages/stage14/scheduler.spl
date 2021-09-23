@@ -11,7 +11,6 @@ multipush (BP);
 [PROCESS_TABLE + currentpid * 16 + 15] = PTLR;
 
 alias newpid R1;
-
 alias temp R2;
 
 temp = currentpid + 1;
