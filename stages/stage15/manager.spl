@@ -1,0 +1,25 @@
+//Implementation of Module 4 (Device Manager Module)
+
+alias functionNum R1;
+alias currentPID R2;
+
+if(functionNum == 3) then
+    //acquiring the terminal
+    multipush(R1,R2,R3); //pushing the arguments
+    R1 = 8; //function number for acquiring
+    R2 = [SYSTEM_STATUS_TABLE + 1]; //currentPID
+
+    call MOD_0; //calling terminal handling function
+    multipop(R1,R2,R3);
+    print(R3); 
+
+    //releasing the terminal
+    multipush(R1,R2,R3);
+    R1 = 9; //function number for releasing
+    R2 = [SYSTEM_STATUS_TABLE + 1]; //currentPID
+    call MOD_0;
+    multipop(R1,R2,R3);
+    return;
+else
+	return;
+endif;
