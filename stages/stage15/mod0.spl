@@ -1,4 +1,4 @@
-//Implementation of Module 0 code for terminal handling
+//Implementation of Module 0 Resource Manager (code for terminal handling)
 
 alias functionNum R1;
 alias currentPID R2;
