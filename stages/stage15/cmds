@@ -1,5 +1,5 @@
 load --int=7 ../stages/stage15/int7.xsm
 load --idle ../expl/expl_progs/idle.xsm
 load --module 7 ../stages/stage15/bootmod.xsm
-load --module 4 ../stages/stage15/manager.xsm
+load --module 4 ../stages/stage15/mod4.xsm
 load --module 0 ../stages/stage15/mod0.xsm
