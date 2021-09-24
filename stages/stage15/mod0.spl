@@ -9,7 +9,7 @@ if(functionNum == 8) then
     while([TERMINAL_STATUS_TABLE] == 1) do  
         [PROCESS_TABLE + currentPID*16 + 4] = WAIT_TERMINAL;
         multipush(R1,R2); //pushing the arguments
-        call MOD_5; //calling scheduler for schedulting other processes
+        call MOD_5; //calling scheduler for scheduling other processes
 
         multipop(R1,R2);
     endwhile;
