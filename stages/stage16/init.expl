@@ -1,0 +1,39 @@
+decl
+int gcd(int x,int y);
+enddecl
+
+int gcd(int x,int y){
+	decl
+		int n;
+	enddecl
+	begin
+		while (x != 0) do
+			n = y%x;
+			y = x;
+			x = n;
+		endwhile;
+		return y;
+	end
+}
+
+int main(){
+decl
+	int a,b,ans,temp;
+enddecl
+begin
+	temp = exposcall("Write",-2,"Enter a:");
+	temp = exposcall("Read",-1,a);
+	temp = exposcall("Write",-2,a);
+	temp = exposcall("Write",-2,"Enter b:");
+	temp = exposcall("Read",-1,b);
+	temp = exposcall("Write",-2,b);
+	if (a>b) then
+		temp = a;
+		a = b;
+		b = temp;
+	endif;
+	ans = gcd(a,b);
+	temp = exposcall("Write",-2,ans);
+	return 0;
+end
+}
