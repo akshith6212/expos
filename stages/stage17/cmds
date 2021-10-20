@@ -1,0 +1,7 @@
+load --module 7 ../stages/stage16/bootmod.xsm
+load --int=console ../stages/stage16/consoleinterrupt.xsm
+load --int=6 ../stages/stage16/int6.xsm
+load --module 5 ../stages/stage16/scheduler.xsm
+load --module 4 ../stages/stage16/mod4.xsm
+load --init ../stages/stage16/init-bubbleSort.xsm
+load --os ../stages/stage14/os_startup.xsm
