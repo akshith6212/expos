@@ -1,5 +1,7 @@
 alias funcNum R1;
 alias pid R2;
+
+//free userareapage
 if (funcNum == 2) then
     multipush(R1,R2);
     R1 = 2;
@@ -9,15 +11,14 @@ if (funcNum == 2) then
     return;
 endif;
 
+//Exit Process
 if ( funcNum == 3 ) then
     multipush(R1,R2);
-
-    R1 = 4;
+    R1 = 4; //free page table
     R2 = R2;
     call MOD_1;
-    multipop(R1,R2);
-    multipush(R1,R2);
-    R1 = 2;
+
+    R1 = 2; //free user area page
     R2 = R2;
     call MOD_1;
     multipop(R1,R2);
@@ -25,10 +26,10 @@ if ( funcNum == 3 ) then
     return;
 endif;
 
+// Free Page Table
 if ( funcNum == 4 ) then
     multipush(R1,R2);
     PTBR = PAGE_TABLE_BASE + 20 * [SYSTEM_STATUS_TABLE + 1];
-
     [PTBR + 0] = -1;
     [PTBR + 1] = "0000";
     [PTBR + 2] = -1;
@@ -41,7 +42,6 @@ if ( funcNum == 4 ) then
                 R2 = [PTBR + R1];
                 R1 = 2;
                 call MOD_2;
-                
                 multipop(R1,R2);
             endif;
         else
