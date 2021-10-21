@@ -1,3 +1,4 @@
+print("in mod2");
 alias funcNum R1;
 alias page R2;
 
@@ -6,9 +7,9 @@ if (funcNum == 1) then
     [SYSTEM_STATUS_TABLE + 3] = [SYSTEM_STATUS_TABLE + 3] + 1;
     if ([SYSTEM_STATUS_TABLE + 2] == 0) then
         [PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 4] = WAIT_MEM;
-        multipush(R1,R2);
+        backup;
         call MOD_5; //calling scheduler
-        multipop(R1,R2);
+        restore;
     endif;
     [SYSTEM_STATUS_TABLE + 3] = [SYSTEM_STATUS_TABLE + 3] - 1;
     [SYSTEM_STATUS_TABLE + 2] = [SYSTEM_STATUS_TABLE + 2] - 1;

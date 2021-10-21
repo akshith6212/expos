@@ -1,4 +1,5 @@
 //exec system call
+print("in int9");
 
 alias userSP R0;
 userSP = SP;
@@ -21,13 +22,15 @@ i = 0;
 
 while ( i < 60 ) do
     if ([INODE_TABLE + i * 16 + 1] == fileName) then
-        if ([INODE_TABLE + i * 16] == EXEC) then
+        if ([INODE_TABLE + i * 16] == 3) then
             break;
         endif;
     endif;
     i = i + 1;
 endwhile;
 
+print(i);
+breakpoint;
 
 alias returnAddress R3;
 
@@ -40,19 +43,19 @@ if ( i == 60) then
     ireturn;
 endif;
 
-multipush(R1,R2,R3); //saving context
+backup; //saving context
 
 R1 = 3; 
 R2 = [SYSTEM_STATUS_TABLE + 1];
 
 call MOD_1;
 
-multipop(R1,R2,R3); //retreiving saved context
+restore; //retreiving saved context
 
-//reducing the number of free pages
+//decrementing the count of free pages
 [SYSTEM_STATUS_TABLE + 2] = [SYSTEM_STATUS_TABLE + 2] - 1; 
 
-//updating memory free list
+//incrementing the count in memory free list
 [MEMORY_FREE_LIST + [PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 11]] = [MEMORY_FREE_LIST + [PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 11]] + 1;
 
 SP = [PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 11] * 512 - 1;
@@ -70,7 +73,7 @@ PTLR = 10;
 [PTBR+2] = 64;
 [PTBR+3] = "0100";
 
-multipush(R1,R2,R3); //saving context
+backup; //saving context
 
 // heap
 R1 = 1;
@@ -134,7 +137,7 @@ call MOD_2;
 [PTBR+18] = R0;
 [PTBR+19] = "0110";
 
-multipop(R1,R2,R3); //retreiving saved context
+restore; //retreiving saved context
 
 
 i = 0;

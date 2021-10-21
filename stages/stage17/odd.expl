@@ -1,0 +1,21 @@
+//code for odd numbers
+
+int main()
+{
+decl
+	int temp,num;
+enddecl
+begin
+	temp = exposcall ( "Write", -2, "odd");
+	num = 1;
+	while ( num <= 100 )do
+        if( (num%2) == 1) then
+    		temp = exposcall ( "Write", -2, num );
+        endif;
+    num = num + 1;
+	breakpoint;
+	endwhile;
+	breakpoint;
+	return 0;
+end
+}

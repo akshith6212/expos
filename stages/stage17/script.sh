@@ -1,0 +1,11 @@
+cd ../../spl
+./spl ../stages/stage16/consoleinterrupt.spl
+./spl ../stages/stage16/int6.spl
+./spl ../stages/stage16/scheduler.spl
+./spl ../stages/stage17/bootmod.spl
+./spl ../stages/stage17/mod1.spl
+./spl ../stages/stage17/mod2.spl
+./spl ../stages/stage17/int9.spl
+cd ../expl
+./expl ../stages/stage17/init.expl
+./expl ../stages/stage17/odd.expl

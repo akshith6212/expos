@@ -1,3 +1,4 @@
+print("in mod1");
 alias funcNum R1;
 alias pid R2;
 
