@@ -7,12 +7,13 @@ if (funcNum == 1) then
     if ([SYSTEM_STATUS_TABLE + 2] == 0) then
         [PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 4] = WAIT_MEM;
         multipush(R1,R2);
-        call MOD_5;
+        call MOD_5; //calling scheduler
         multipop(R1,R2);
     endif;
     [SYSTEM_STATUS_TABLE + 3] = [SYSTEM_STATUS_TABLE + 3] - 1;
     [SYSTEM_STATUS_TABLE + 2] = [SYSTEM_STATUS_TABLE + 2] - 1;
-    R1 = 76;
+    
+    R1 = 76; //because from 76 we are using the pages
     while ( R1 < 127 ) do
         if ([MEMORY_FREE_LIST + R1] == 0) then
             break;
@@ -27,8 +28,10 @@ endif;
 
 //release page
 if (funcNum == 2) then 
-    [MEMORY_FREE_LIST + R2] = 0;
-    [SYSTEM_STATUS_TABLE + 2] = [SYSTEM_STATUS_TABLE + 2] + 1;
+    [MEMORY_FREE_LIST + R2] = [MEMORY_FREE_LIST + R2] - 1;
+    if([MEMORY_FREE_LIST + R2] == 0) then
+        [SYSTEM_STATUS_TABLE + 2] = [SYSTEM_STATUS_TABLE + 2] + 1;
+    endif;
     R1 = 0;
     while (R1 < 16) do
         if ([PROCESS_TABLE + R1 * 16 + 4] == WAIT_MEM) then
