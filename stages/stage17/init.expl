@@ -6,8 +6,6 @@ enddecl
 begin
     temp = exposcall("Write",-2,"Enter process name:");
 	temp = exposcall("Read",-1,processname);
-	temp = exposcall("Write", -2, processname);
-	temp = exposcall("Write",-2,"init");
 	temp = exposcall("Exec",processname);
     temp = exposcall("Write",-2,"Not executable");
 	return 0;

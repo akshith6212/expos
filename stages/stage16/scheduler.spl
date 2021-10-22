@@ -1,9 +1,9 @@
-print("scheduler");
+// print("scheduler");
 
 alias currentpid R0;
 currentpid = [SYSTEM_STATUS_TABLE + 1];
 
-print(currentpid);
+// print(currentpid);
 
 //saving BP in kernel stack
 multipush (BP);
@@ -54,7 +54,7 @@ endif;
 multipop (BP);
 [PROCESS_TABLE + newpid * 16 + 4] = RUNNING;
 
-print(newpid);
-print("!scheduler");
+// print(newpid);
+// print("!scheduler");
 
 return;

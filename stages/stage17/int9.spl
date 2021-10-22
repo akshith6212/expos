@@ -1,5 +1,5 @@
 //exec system call
-print("in int9");
+// print("in int9");
 
 alias userSP R0;
 userSP = SP;
@@ -29,7 +29,7 @@ while ( i < 60 ) do
     i = i + 1;
 endwhile;
 
-print(i);
+// print(i);
 breakpoint;
 
 alias returnAddress R3;

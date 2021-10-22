@@ -2,12 +2,12 @@
 loadi(65,7);
 loadi(66,8);
 
-//loading the odd.xsm code block
-loadi(83,69);
+//inode table
+loadi(59,3);
+loadi(60,4);
 
-//int 10 i.e. exit
-loadi(22,35);
-loadi(23,36);
+//loading the odd.xsm code block
+//loadi(83,69);
 
 //exception handler
 loadi(2,15);
@@ -17,17 +17,33 @@ loadi(3,16);
 loadi(63,13);
 loadi(64,14);
 
+//console interrupt
+loadi(8,21);
+loadi(9,22);
+
 //timer interrupt
 loadi(4,17);
 loadi(5,18);
+
+//int 6 => read system call routine
+loadi(14,27);
+loadi(15,28);
 
 //int 7 i.e. write to console
 loadi(16,29);
 loadi(17,30);
 
+//int9 => exec system call
+loadi(20,33);
+loadi(21,34);
+
+//int 10 i.e. exit
+loadi(22,35);
+loadi(23,36);
+
 //module 0 => Resource Manager
-loadi(48,61);
-loadi(49,62);
+loadi(40,53);
+loadi(41,54);
 
 //module 1 => process manager module
 loadi(42,55);
@@ -38,31 +54,47 @@ loadi(44,57);
 loadi(45,58);
 
 //module 4 => Device Manager
-loadi(40,53);
-loadi(41,54);
+loadi(48,61);
+loadi(49,62);
 
 //module 5 => scheduler module
 loadi(50,63);
 loadi(51,64);
 
-//console interrupt
-loadi(8,21);
-loadi(9,22);
+//terminal is free
+[TERMINAL_STATUS_TABLE] = 0; 
 
-//int 6 => read system call routine
-loadi(14,27);
-loadi(15,28);
+//setting wait mem count and mem free count
+[SYSTEM_STATUS_TABLE + 2] = 45; 
+[SYSTEM_STATUS_TABLE + 3] = 0;
 
-//int9 => exec system call
-loadi(20,23);
-loadi(21,34);
+//making all other processes as terminated
+alias index R0;
+index = 2;
+while ( index < 16 ) do
+	[PROCESS_TABLE + ( 16 * index ) + 4] = TERMINATED;
+	index = index + 1;
+endwhile;
 
-//inode table
-loadi(59,3);
-loadi(60,4);
+index = 0;
 
+//core pages
+while ( index < 76) do
+	[MEMORY_FREE_LIST + index] = 1;
+	index = index + 1;
+endwhile;
 
-[TERMINAL_STATUS_TABLE] = 0; //terminal is free
+//used by IDLE, INIT
+while (index < 83) do
+	[MEMORY_FREE_LIST + index] = 1;
+	index = index + 1;
+endwhile;
+
+while (index < 128) do
+	[MEMORY_FREE_LIST + index] = 0;
+	index = index + 1;
+endwhile;
+
 
 //init program
 PTBR = PAGE_TABLE_BASE + 20;
@@ -107,38 +139,5 @@ PTLR = 10;
 
 //setting stack for init
 [76 * 512] = [65*512 + 1];
-
-
-//making all other processes as terminated
-alias index R0;
-index = 2;
-while ( index < 16 ) do
-	[PROCESS_TABLE + ( 16 * index ) + 4] = TERMINATED;
-	index = index + 1;
-endwhile;
-
-//core pages
-while ( index < 76) do
-	[MEMORY_FREE_LIST + index] = 1;
-	index = index + 1;
-endwhile;
-
-//used by IDLE, INIT
-while (index < 84) do
-	[MEMORY_FREE_LIST + index] = 1;
-	index = index + 1;
-endwhile;
-
-while (index < 128) do
-	[MEMORY_FREE_LIST + index] = 0;
-	index = index + 1;
-endwhile;
-
-//setting wait mem count and mem free count
-[SYSTEM_STATUS_TABLE + 3] = 0;
-[SYSTEM_STATUS_TABLE + 2] = 44; 
-
-//128-84 = 44
-//(occupied until 83 i.e, 0-83 => 84 occupied)
 
 return;
