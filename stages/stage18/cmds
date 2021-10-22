@@ -1,0 +1,5 @@
+load --int=9 ../stages/stage18/int9.xsm
+load --int=disk ../stages/stage18/diskint.xsm
+load --module 0 ../stages/stage18/mod0.xsm
+load --module 4 ../stages/stage18/mod4.xsm
+load --module 7 ../stages/stage18/bootmod.xsm
