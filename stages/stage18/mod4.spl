@@ -1,4 +1,4 @@
-//Implementation of Module 4 (Device Manager Module)
+//Device Manager Module
 
 alias functionNum R1;
 alias currentPID R2;
