@@ -7,6 +7,7 @@ cd ../../spl
 
 cd ../expl
 ./expl ../stages/stage19/init.expl
+./expl ../stages/stage19/linkedlist.expl
 
 cd ../xfs-interface
 
