@@ -1,5 +1,6 @@
 load --int=9 ../stages/stage19/int9.xsm
-load --module 0 ../stages/stage19/mod1.xsm
-load --module 4 ../stages/stage19/mod2.xsm
+load --module 1 ../stages/stage19/mod1.xsm
+load --module 2 ../stages/stage19/mod2.xsm
 load --module 7 ../stages/stage19/bootmod.xsm
 load --exhandler ../stages/stage19/exhandler.xsm
+load --init ../stages/stage19/init.xsm

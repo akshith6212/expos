@@ -7,7 +7,7 @@ loadi(59,3);
 loadi(60,4);
 
 //loading disk free list
-//loadi(61,2);
+loadi(61,2);
 
 //exception handler
 loadi(2,15);

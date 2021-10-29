@@ -1,4 +1,4 @@
-//exec system call
+// exec system call
 // print("in int9");
 
 alias userSP R0;
@@ -17,6 +17,8 @@ SP = [PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 11] * 512 - 1;
 alias fileName R1;
 fileName = [[PTBR + 2 * (userSP - 4)/512] * 512 + (userSP - 4) % 512];  //pagenum * 512 + offset
 
+// print(fileName);
+
 alias i R2;
 i = 0;
 
@@ -34,7 +36,7 @@ breakpoint;
 
 alias returnAddress R3;
 
-//return if not found
+// return if not found
 if ( i == 60) then
     returnAddress = [PTBR + 2 * (userSP - 1)/512] * 512 + (userSP - 1) % 512;  //pagenum * 512 + offset
     [returnAddress] = -1;
@@ -45,10 +47,14 @@ endif;
 
 backup; //saving context
 
+// print("cmod1");
+
 R1 = 3; 
 R2 = [SYSTEM_STATUS_TABLE + 1];
 
 call MOD_1;
+
+// print("!cmod1");
 
 restore; //retreiving saved context
 
@@ -63,6 +69,8 @@ SP = [PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 11] * 512 - 1;
 // starting the new process with old pid
 [PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 4] = RUNNING;
 [PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 7] = i;
+
+// print("new");
 
 PTBR = PAGE_TABLE_BASE + [SYSTEM_STATUS_TABLE + 1] * 20;
 PTLR = 10;
@@ -132,4 +140,5 @@ SP = 8 * 512;
 
 [PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 9] = 0; // setting mode to user
 
+// print("!int9");
 ireturn;

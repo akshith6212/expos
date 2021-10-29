@@ -5,6 +5,7 @@ alias funcNum R1;
 
 //get free page
 if (funcNum == 1) then
+    // print(1);
     [SYSTEM_STATUS_TABLE + 3] = [SYSTEM_STATUS_TABLE + 3] + 1;
     if ([SYSTEM_STATUS_TABLE + 2] == 0) then
         [PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 4] = WAIT_MEM;
@@ -30,6 +31,8 @@ endif;
 
 //release page
 if (funcNum == 2) then 
+    // print(2);
+    backup;
     [MEMORY_FREE_LIST + R2] = [MEMORY_FREE_LIST + R2] - 1;
     if([MEMORY_FREE_LIST + R2] == 0) then
         [SYSTEM_STATUS_TABLE + 2] = [SYSTEM_STATUS_TABLE + 2] + 1;
@@ -41,16 +44,20 @@ if (funcNum == 2) then
         endif;
         R1 = R1 + 1;
     endwhile; 
+    restore;
     return;
 endif;
 
+// release block
 if(funcNum == 4) then
+    // print("RB4");
     [DISK_FREE_LIST + R2] = [DISK_FREE_LIST + R2] - 1;
+    return;
 endif;
 
 //Get Code Page Function
 if(funcNum == 5) then
-    
+    // print(5);
     // inputs
     alias blockval R2; //from inode index
     alias pid R3;
@@ -81,19 +88,19 @@ if(funcNum == 5) then
     endwhile;
 
     breakpoint;
-    backup;
 
+    multipush(R2);
     R1 = 1;
     call MOD_2;
+    multipop(R2);
     
     R1 = 2;
     R4 = blockval;
     R2 = [SYSTEM_STATUS_TABLE + 1];
     R3 = R0;
-    
+    multipush(R3);
     call MOD_4;
-
-    restore;
+    multipop(R3);
     
     R0 = R3;
     breakpoint;

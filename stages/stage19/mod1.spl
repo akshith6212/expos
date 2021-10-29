@@ -19,6 +19,7 @@ if ( funcNum == 3 ) then
     multipush(R1,R2);
     R1 = 4; //free page table
     R2 = R2;
+    // print(R2);
     call MOD_1;
 
     R1 = 2; //free user area page
@@ -31,7 +32,7 @@ endif;
 
 // Free Page Table
 if ( funcNum == 4 ) then
-    multipush(R1,R2);
+    // print("FP4");
     PTBR = PAGE_TABLE_BASE + 20 * [SYSTEM_STATUS_TABLE + 1];
     [PTBR + 0] = -1;
     [PTBR + 1] = "0000";
@@ -54,7 +55,7 @@ if ( funcNum == 4 ) then
             restore;
             [PTBR + page*2] = -1;
             [PTBR + page*2 + 1] = "0000";
-            if( ([disk_map+page] != -1) && (page == 2 || page == 3|| page == 8 || page == 9)) then
+            if( ([disk_map+page] != -1) && (page == 2 || page == 3 || page == 8 || page == 9)) then
                 backup;
                 R1 = 4;
                 R2 = [disk_map + page];
