@@ -9,6 +9,7 @@ cd ../expl
 ./expl ../stages/stage20/init.expl
 ./expl ../stages/stage20/odd.expl
 ./expl ../stages/stage20/even.expl
+./expl ../stages/stage20/linkedlist.expl
 
 cd ../xfs-interface
 
