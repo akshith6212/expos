@@ -1,5 +1,6 @@
 load --int=8 ../stages/stage20/int8.xsm
 load --int=10 ../stages/stage20/int10.xsm
+load --init ../stages/stage20/init.xsm
 load --module 1 ../stages/stage20/mod1.xsm
 load --module 5 ../stages/stage20/scheduler.xsm
 load --module 7 ../stages/stage20/bootmod.xsm

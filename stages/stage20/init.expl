@@ -1,12 +1,15 @@
+// for forking
+
 int main(){
 decl
-	int temp;
-	str processname;
+	int a,temp;
 enddecl
 begin
-    temp = exposcall("Write",-2,"Enter process name:");
-    temp = exposcall("Read",-1,processname);
-    temp = exposcall("Exec",processname);
+    temp = exposcall("Fork");
+    breakpoint;
+    temp = exposcall("Write",-2,"Enter Name");
+    temp = exposcall("Read",-1,a);
+    temp = exposcall("Exec",a);
     temp = exposcall("Write",-2,"Not executable");
 	return 0;
 end
