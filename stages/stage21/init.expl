@@ -11,7 +11,7 @@ begin
     while(0<1) do
       temp = exposcall("Write",-2,"ENTER COMMAND");
       temp = exposcall("Read",-1,input);
-      if (input != "Shutdown") then
+      if (input != "exit") then
         pid = exposcall("Fork");
         if (pid != 0) then
           temp = exposcall("Wait",pid);

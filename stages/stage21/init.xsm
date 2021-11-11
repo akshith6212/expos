@@ -101,7 +101,7 @@ MOV R1,BP
 MOV R0,3
 ADD R1,R0
 MOV R0,[R1]
-MOV R1,"Shutdown"
+MOV R1,"exit"
 NE R0,R1
 JZ R0,2518
 MOV R0,"Fork"
