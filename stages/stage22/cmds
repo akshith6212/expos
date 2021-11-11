@@ -1,0 +1,7 @@
+load --int=8 ../stages/stage22/int8.xsm
+load --int=13 ../stages/stage22/int13.xsm
+load --int=14 ../stages/stage22/int14.xsm
+load --init ../stages/stage22/init.xsm
+load --module 0 ../stages/stage22/mod0.xsm
+load --module 1 ../stages/stage22/mod1.xsm
+load --module 7 ../stages/stage22/bootmod.xsm

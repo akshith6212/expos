@@ -1,0 +1,109 @@
+//Resource Manager
+
+alias functionNum R1;
+alias currentPID R2;
+alias temp R3;
+
+if (functionNum == 3) then
+    while ([DISK_STATUS_TABLE] == 1) do
+        [PROCESS_TABLE + currentPID * 16 + 4] = WAIT_DISK;
+        multipush(R1,R2);
+        call MOD_5;
+        multipop(R1,R2);
+    endwhile;
+    [DISK_STATUS_TABLE] = 1;
+    [DISK_STATUS_TABLE + 4] = currentPID;
+    return;
+endif;
+
+// Acquire Semaphore
+if (functionNum == 6) then
+    multipush(R4);
+    R4 = 0;
+    //check if there is a free semaphore
+    while (R4 < 32) do
+        if ([SEMAPHORE_TABLE + R4 * 4 + 1] == 0) then
+            break;
+        endif;
+        R4 = R4 + 1;
+    endwhile;
+
+    //if not there then return -1
+    if (R4 == 32) then
+        R0 = -1;
+        multipop(R4);
+        return;
+    endif;
+
+    //else increment semaphore using count and lock it
+    [SEMAPHORE_TABLE + R4 * 4 + 1] = 1;     // Processes using this Semaphore
+    [SEMAPHORE_TABLE + R4 * 4] = -1;        // Locking PID
+
+    R0 = R4;
+    multipop(R4);
+    return;
+endif;
+
+// Release Semaphore
+if (functionNum == 7) then
+    alias sem_id R2;
+
+    // if semaphore is locked by the current process
+    if ([SEMAPHORE_TABLE + sem_id * 4] == R3) then
+      [SEMAPHORE_TABLE + sem_id * 4] = -1;
+      multipush(R4);
+      R4 = 0;
+      while (R4 < 16) do
+        if ([PROCESS_TABLE + R4 * 16 + 4] == WAIT_SEMAPHORE && [PROCESS_TABLE + R4 * 16 + 5] == sem_id) then
+          [PROCESS_TABLE + R4 * 16 + 4] = READY;
+        endif;
+        R4 = R4 + 1;
+      endwhile;
+      multipop(R4);
+    endif;
+
+    //decrement usage count
+    [SEMAPHORE_TABLE + R3 * 4 + 1] = [SEMAPHORE_TABLE + R3 * 4 + 1] - 1;
+    R0 = 0;
+    return;
+endif;
+
+if(functionNum == 8) then
+    //waiting for terminal tp be released
+    while([TERMINAL_STATUS_TABLE] == 1) do  
+        [PROCESS_TABLE + currentPID*16 + 4] = WAIT_TERMINAL;
+        multipush(R1,R2); //pushing the arguments
+        call MOD_5; //calling scheduler for scheduling other processes
+
+        multipop(R1,R2);
+    endwhile;
+
+    [TERMINAL_STATUS_TABLE] = 1;
+    [TERMINAL_STATUS_TABLE + 1] = currentPID;
+    breakpoint;
+    return;
+endif;
+
+if(functionNum == 9) then
+    //Process didn't acquire the terminal and trying to release it which is not legit
+    if(currentPID != [TERMINAL_STATUS_TABLE + 1]) then 
+        R0 = -1;
+        return;
+    endif;
+
+    //Implies terminal is released
+    [TERMINAL_STATUS_TABLE] = 0;
+
+    //Making all processes READY as terminal is released
+    temp = 0;
+    while (temp <= 15) do
+        if ([PROCESS_TABLE + temp*16 + 4] == WAIT_TERMINAL) then
+            [PROCESS_TABLE + temp*16 + 4] = READY;
+        endif;
+        temp = temp + 1;
+    endwhile;
+    
+    R0 = 0;
+    breakpoint;
+    return;
+endif;
