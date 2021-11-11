@@ -1,0 +1,34 @@
+// shell code
+
+int main(){
+decl
+	int pid,temp;
+  string input;
+enddecl
+begin
+    temp = exposcall("Write",-2,"Welcome to");
+    temp = exposcall("Write",-2,"eXpOS Shell");
+    while(0<1) do
+      temp = exposcall("Write",-2,"ENTER COMMAND");
+      temp = exposcall("Read",-1,input);
+      if (input != "Shutdown") then
+        pid = exposcall("Fork");
+        if (pid != 0) then
+          temp = exposcall("Wait",pid);
+        endif;
+        if (pid < 0) then
+          temp = exposcall("Write",-2,"FORK FAILED");
+        endif;
+        if (pid == 0) then
+          temp = exposcall("Exec", input);
+          if (temp == -1) then
+            temp = exposcall("Write", -2, "BAD COMMAND");
+          endif;
+        endif;
+      else
+        temp = exposcall("Shutdown");
+      endif;
+    endwhile;
+	return 0;
+end
+} 

@@ -1,0 +1,12 @@
+// Just says hello
+
+int main(){
+decl
+	int temp;
+enddecl
+begin
+    temp = exposcall("Write",-2,"Hello");
+    temp = exposcall("Write",-2,"Akshith");
+	return 0;
+end
+}
