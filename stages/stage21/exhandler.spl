@@ -22,7 +22,7 @@ if ((EC != 0) || (SP == 10*512-1)) then
         print("Illegal Memory Access!");
     endif;
     
-    if(EC == 1) then
+    if(EC == 3) then
         print("Arithmetic Exception!");
     endif;
     

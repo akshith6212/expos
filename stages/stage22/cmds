@@ -5,3 +5,4 @@ load --init ../stages/stage22/init.xsm
 load --module 0 ../stages/stage22/mod0.xsm
 load --module 1 ../stages/stage22/mod1.xsm
 load --module 7 ../stages/stage22/bootmod.xsm
+load --exhandler ../stages/stage22/exhandler.xsm
