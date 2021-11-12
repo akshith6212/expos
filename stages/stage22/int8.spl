@@ -95,14 +95,6 @@ Child_Process_Table = PROCESS_TABLE + childPID * 16;
 [Child_Process_Table + 15] = 10;
 
 
-// C O P Y   P E R   P R O C E S S   R E S O U R C E   T A B L E   H E R E
-// I N   F U R T H E R   S T A G E S
-
-// SEMAPHORE_TABLE 
-// 0 --> Locking process
-// 1 --> Number of processes sharing
-
-
 multipush(R4,R6,R7);
 alias i R4;
 i = 496;
